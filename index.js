@@ -106,11 +106,11 @@ atualizarListaDeAtividades()
 
 const salvarAtividade = (event) => {
   event.preventDefault()
-  const dadosdoFormulario = new FormData(event.target)
+  const dadosDoFormulario = new FormData(event.target)
 
-  const nome = dadosdoFormulario.get('atividade')
-  const dia = dadosdoFormulario.get('dia')
-  const hora = dadosdoFormulario.get('hora')
+  const nome = dadosDoFormulario.get('atividade')
+  const dia = dadosDoFormulario.get('dia')
+  const hora = dadosDoFormulario.get('hora')
   const data = `${dia} ${hora}`
 
   const novaAtividade = {
@@ -119,15 +119,15 @@ const salvarAtividade = (event) => {
     finalizada: false
   }
 
-  const atividadeExiste = atividade.find((atividade) => {
-    return atividade.data = novaAtividade.data
+  const atividadeExiste = atividades.find((atividade) => {
+    return atividade.data == novaAtividade.data
   })
 
   if(atividadeExiste) {
     return alert('Dia/Hora não disponível')
   }
 
-  atividades = [atividade, ...atividade]
+  atividades = [novaAtividade, ...atividades]
   atualizarListaDeAtividades()
 }
 
@@ -145,9 +145,7 @@ const criarDiasSelecao = () => {
   for(let dia of dias) {
     const formatar = formatador(dia)
     const diaFormatado = `
-    ${formatar.dia.numerico} de
-    ${formatar.mes}
-    `
+    ${formatar.dia.numerico} de ${formatar.mes}`
 
     diasSelecao += `
     <option value="${dia}">${diaFormatado}</option>
